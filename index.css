@@ -1,0 +1,214 @@
+/* ==========================================================================
+   1. GLOBAL VARIABLES & THEME SETUP
+   ========================================================================== */
+:root {
+  --bg-main: #0d0d0d;
+  --bg-card: #171717;
+  --bg-border: #222222;
+  --text-muted: #4b5563;
+  --text-subtitle: #6b7280;
+  
+  /* Rank Colors & Glows */
+  --rank-1: #a855f7;          /* Purple */
+  --rank-1-glow: rgba(168, 85, 247, 0.4);
+  --rank-2: #e5e7eb;          /* White/Silver */
+  --rank-3: #ca8a04;          /* Orange/Bronze */
+  --score-color: #facc15;      /* Gold/Yellow */
+  --tab-active: #ef4444;       /* Bright Red */
+}
+
+/* Base resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: #ffffff;
+  font-family: 'Arial Black', 'Impact', sans-serif;
+  text-transform: uppercase;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 450px; /* Mobile View Optimizer */
+}
+
+/* ==========================================================================
+   2. NAVIGATION TABS (Top Buttons)
+   ========================================================================== */
+.tab-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background-color: var(--tab-active);
+  color: #ffffff;
+  border: none;
+}
+
+.tab-btn.inactive {
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid #262626;
+}
+
+/* ==========================================================================
+   3. SEARCH INPUT
+   ========================================================================== */
+.search-box {
+  width: 100%;
+  background-color: var(--bg-card);
+  border: 1px solid #262626;
+  border-radius: 12px;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 13px;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.search-box::placeholder {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   4. LEADERBOARD CARDS & CONTAINER
+   ========================================================================== */
+.leaderboard-card {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--bg-border);
+}
+
+.category-title {
+  font-style: italic;
+  font-size: 13px;
+  color: #ffffff;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   5. PLAYER ROW BASE STYLES
+   ========================================================================== */
+.player-row {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(30, 30, 30, 0.6) 0%, rgba(15, 15, 15, 0) 100%);
+  border-radius: 12px;
+  padding: 12px 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left Indicator Border Line */
+.player-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+}
+
+.player-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  margin-right: 15px;
+  background-color: #333;
+  image-rendering: pixelated; /* Perfect sharp look for Minecraft pixels */
+}
+
+.subtitle {
+  font-size: 10px;
+  color: var(--text-subtitle);
+  display: block;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   6. RANK SPECIFIC STYLES (Colors, Glows & Scores)
+   ========================================================================== */
+
+/* --- RANK 1 (Purple Custom Glow) --- */
+.rank-1-row::before {
+  background-color: var(--rank-1);
+  box-shadow: 0 0 15px var(--rank-1);
+}
+.rank-1-num {
+  color: var(--rank-1);
+  font-size: 20px;
+  margin-right: 15px;
+  min-width: 30px;
+}
+.rank-1-name {
+  color: var(--rank-1);
+  font-size: 16px;
+  text-shadow: 0 0 8px var(--rank-1-glow);
+}
+.rank-1-score {
+  color: var(--score-color);
+  margin-left: auto;
+  font-size: 20px;
+}
+
+/* --- RANK 2 (White/Silver) --- */
+.rank-2-row::before {
+  background-color: var(--rank-2);
+}
+.rank-2-num {
+  color: var(--text-subtitle);
+  font-size: 20px;
+  margin-right: 15px;
+  min-width: 30px;
+}
+.rank-2-name {
+  color: var(--rank-2);
+  font-size: 16px;
+}
+.rank-2-score {
+  color: var(--score-color);
+  margin-left: auto;
+  font-size: 20px;
+}
+
+/* --- RANK 3 (Orange/Bronze) --- */
+.rank-3-row::before {
+  background-color: var(--rank-3);
+}
+.rank-3-num {
+  color: var(--rank-3);
+  font-size: 20px;
+  margin-right: 15px;
+  min-width: 30px;
+}
+.rank-3-name {
+  color: var(--rank-3);
+  font-size: 16px;
+}
+.rank-3-score {
+  color: var(--score-color);
+  margin-left: auto;
+  font-size: 20px;
+}
