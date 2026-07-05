@@ -1,214 +1,365 @@
-/* ==========================================================================
-   1. GLOBAL VARIABLES & THEME SETUP
-   ========================================================================== */
-:root {
-  --bg-main: #0d0d0d;
-  --bg-card: #171717;
-  --bg-border: #222222;
-  --text-muted: #4b5563;
-  --text-subtitle: #6b7280;
-  
-  /* Rank Colors & Glows */
-  --rank-1: #a855f7;          /* Purple */
-  --rank-1-glow: rgba(168, 85, 247, 0.4);
-  --rank-2: #e5e7eb;          /* White/Silver */
-  --rank-3: #ca8a04;          /* Orange/Bronze */
-  --score-color: #facc15;      /* Gold/Yellow */
-  --tab-active: #ef4444;       /* Bright Red */
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pojav Tiers - Purple Edition</title>
+  <style>
+    /* ==========================================================================
+       1. GLOBAL THEME & VARIABLES (FULL PURPLE EDITION)
+       ========================================================================== */
+    :root {
+      --bg-main: #09070f;         /* Dark Purple-Tinted Background */
+      --bg-card: #120e1a;         /* Dark Purple Card Background */
+      --bg-border: #231a33;       /* Purple-ish Border */
+      --text-muted: #635973;
+      --text-subtitle: #8b7fa3;
+      
+      /* Pure Purple Theme Accents */
+      --purple-main: #a855f7;     /* Vibrant Purple */
+      --purple-glow: rgba(168, 85, 247, 0.5);
+      --purple-dark: #701a75;
+      --score-color: #facc15;     /* Gold/Yellow for Score Highlights */
+      --discord-blue: #5865f2;
+    }
 
-/* Base resets */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  background-color: var(--bg-main);
-  color: #ffffff;
-  font-family: 'Arial Black', 'Impact', sans-serif;
-  text-transform: uppercase;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
+    body {
+      background-color: var(--bg-main);
+      color: #ffffff;
+      font-family: 'Arial Black', 'Impact', sans-serif;
+      text-transform: uppercase;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+    }
 
-.container {
-  width: 100%;
-  max-width: 450px; /* Mobile View Optimizer */
-}
+    .container {
+      width: 100%;
+      max-width: 450px;
+    }
 
-/* ==========================================================================
-   2. NAVIGATION TABS (Top Buttons)
-   ========================================================================== */
-.tab-container {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+    /* ==========================================================================
+       2. TOP NAVBAR (Developer & Discord)
+       ========================================================================== */
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-top: 5px;
+    }
 
-.tab-btn {
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: bold;
-  font-size: 12px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
-}
+    .dev-info {
+      display: flex;
+      flex-direction: column;
+    }
 
-.tab-btn.active {
-  background-color: var(--tab-active);
-  color: #ffffff;
-  border: none;
-}
+    .dev-title {
+      font-size: 10px;
+      color: var(--text-subtitle);
+      letter-spacing: 1.5px;
+    }
 
-.tab-btn.inactive {
-  background-color: var(--bg-card);
-  color: var(--text-muted);
-  border: 1px solid #262626;
-}
+    .dev-name {
+      font-size: 18px;
+      color: var(--purple-main);
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px var(--purple-glow);
+    }
 
-/* ==========================================================================
-   3. SEARCH INPUT
-   ========================================================================== */
-.search-box {
-  width: 100%;
-  background-color: var(--bg-card);
-  border: 1px solid #262626;
-  border-radius: 12px;
-  padding: 15px;
-  color: #ffffff;
-  font-size: 13px;
-  margin-bottom: 25px;
-  letter-spacing: 1px;
-}
+    .discord-btn {
+      background-color: var(--discord-blue);
+      border: none;
+      border-radius: 12px;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
 
-.search-box::placeholder {
-  color: var(--text-muted);
-}
+    .discord-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #ffffff;
+    }
 
-/* ==========================================================================
-   4. LEADERBOARD CARDS & CONTAINER
-   ========================================================================== */
-.leaderboard-card {
-  background-color: var(--bg-card);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid var(--bg-border);
-}
+    /* ==========================================================================
+       3. LOGO BRANDING (POJAV TIERS PURPLE)
+       ========================================================================== */
+    .brand-section {
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-.category-title {
-  font-style: italic;
-  font-size: 13px;
-  color: #ffffff;
-  margin-bottom: 15px;
-  letter-spacing: 0.5px;
-}
+    .main-logo {
+      font-size: 38px;
+      font-style: italic;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
 
-/* ==========================================================================
-   5. PLAYER ROW BASE STYLES
-   ========================================================================== */
-.player-row {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(90deg, rgba(30, 30, 30, 0.6) 0%, rgba(15, 15, 15, 0) 100%);
-  border-radius: 12px;
-  padding: 12px 15px;
-  position: relative;
-  overflow: hidden;
-}
+    .logo-white {
+      color: #ffffff;
+    }
 
-/* Left Indicator Border Line */
-.player-row::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-}
+    .logo-purple {
+      color: var(--purple-main);
+      text-shadow: 0 0 15px var(--purple-glow);
+    }
 
-.player-avatar {
-  width: 45px;
-  height: 45px;
-  border-radius: 6px;
-  margin-right: 15px;
-  background-color: #333;
-  image-rendering: pixelated; /* Perfect sharp look for Minecraft pixels */
-}
+    .sub-logo-text {
+      font-size: 9px;
+      color: var(--text-subtitle);
+      letter-spacing: 4px;
+      margin-top: 8px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
 
-.subtitle {
-  font-size: 10px;
-  color: var(--text-subtitle);
-  display: block;
-  margin-top: 2px;
-}
+    /* ==========================================================================
+       4. NAVIGATION TABS (Purple Active State)
+       ========================================================================== */
+    .tab-container {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
 
-/* ==========================================================================
-   6. RANK SPECIFIC STYLES (Colors, Glows & Scores)
-   ========================================================================== */
+    .tab-container::-webkit-scrollbar {
+      display: none;
+    }
 
-/* --- RANK 1 (Purple Custom Glow) --- */
-.rank-1-row::before {
-  background-color: var(--rank-1);
-  box-shadow: 0 0 15px var(--rank-1);
-}
-.rank-1-num {
-  color: var(--rank-1);
-  font-size: 20px;
-  margin-right: 15px;
-  min-width: 30px;
-}
-.rank-1-name {
-  color: var(--rank-1);
-  font-size: 16px;
-  text-shadow: 0 0 8px var(--rank-1-glow);
-}
-.rank-1-score {
-  color: var(--score-color);
-  margin-left: auto;
-  font-size: 20px;
-}
+    .tab-btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      border: none;
+    }
 
-/* --- RANK 2 (White/Silver) --- */
-.rank-2-row::before {
-  background-color: var(--rank-2);
-}
-.rank-2-num {
-  color: var(--text-subtitle);
-  font-size: 20px;
-  margin-right: 15px;
-  min-width: 30px;
-}
-.rank-2-name {
-  color: var(--rank-2);
-  font-size: 16px;
-}
-.rank-2-score {
-  color: var(--score-color);
-  margin-left: auto;
-  font-size: 20px;
-}
+    .tab-btn.active {
+      background-color: var(--purple-main);
+      color: #ffffff;
+      box-shadow: 0 0 12px var(--purple-glow);
+    }
 
-/* --- RANK 3 (Orange/Bronze) --- */
-.rank-3-row::before {
-  background-color: var(--rank-3);
-}
-.rank-3-num {
-  color: var(--rank-3);
-  font-size: 20px;
-  margin-right: 15px;
-  min-width: 30px;
-}
-.rank-3-name {
-  color: var(--rank-3);
-  font-size: 16px;
-}
-.rank-3-score {
-  color: var(--score-color);
-  margin-left: auto;
-  font-size: 20px;
-}
+    .tab-btn.inactive {
+      background-color: #1a1426;
+      color: var(--text-muted);
+      border: 1px solid var(--bg-border);
+    }
+
+    /* ==========================================================================
+       5. SEARCH BAR
+       ========================================================================== */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .search-box {
+      width: 100%;
+      background-color: #1a1426;
+      border: 1px solid var(--bg-border);
+      border-radius: 10px;
+      padding: 14px 14px 14px 40px;
+      color: #ffffff;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: var(--purple-main);
+      box-shadow: 0 0 8px rgba(168, 85, 247, 0.2);
+    }
+
+    .search-box::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* ==========================================================================
+       6. LEADERBOARD CARDS & ROWS
+       ========================================================================== */
+    .leaderboard-card {
+      background-color: var(--bg-card);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+      border: 1px solid var(--bg-border);
+    }
+
+    .category-title {
+      font-style: italic;
+      font-size: 12px;
+      color: #ffffff;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .player-row {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(35, 26, 51, 0.6) 0%, rgba(18, 14, 26, 0) 100%);
+      border-radius: 10px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .player-row::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: var(--purple-main);
+      box-shadow: 0 0 10px var(--purple-main);
+    }
+
+    .player-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 4px;
+      margin-right: 12px;
+      background-color: #2a203d;
+      image-rendering: pixelated; 
+    }
+
+    .player-name {
+      color: #ffffff;
+      font-size: 15px;
+    }
+
+    /* Special Highlight for Rank 1 Player Text */
+    .rank-1-row .player-name {
+      color: var(--purple-main);
+      text-shadow: 0 0 8px var(--purple-glow);
+    }
+
+    .rank-num {
+      color: var(--purple-main);
+      font-size: 18px;
+      margin-right: 12px;
+      min-width: 28px;
+    }
+
+    .subtitle {
+      font-size: 9px;
+      color: var(--text-subtitle);
+      display: block;
+      margin-top: 1px;
+    }
+
+    .player-score {
+      color: var(--score-color);
+      margin-left: auto;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Top Nav -->
+    <div class="header-nav">
+      <div class="dev-info">
+        <span class="dev-title">DEVELOPER</span>
+        <span class="dev-name">ANKITCRAFTFIRE</span>
+      </div>
+      <button class="discord-btn" aria-label="Discord">
+        <svg viewBox="0 0 127.14 96.36">
+          <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.72-10.93,68.6,68.6,0,0,1-10.64-5.12c.91-.67,1.81-1.37,2.65-2.1a75.22,75.22,0,0,0,72.94,0c.84.73,1.74,1.43,2.65,2.1a68.6,68.6,0,0,1-10.64,5.12,74.37,74.37,0,0,0,6.72,10.93,105.73,105.73,0,0,0,31.55-18.83C129.91,50.15,123.75,27.35,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.92,46,53.92,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.16,46,96.16,53,91,65.69,84.69,65.69Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Purple Branding Logo -->
+    <div class="brand-section">
+      <h1 class="main-logo"><span class="logo-white">POJAV</span><span class="logo-purple">TIERS</span></h1>
+      <div class="sub-logo-text">OFFICIAL RANKING SYSTEM</div>
+    </div>
+    
+    <!-- Purple Tabs Menu -->
+    <div class="tab-container">
+      <button class="tab-btn active">Overall</button>
+      <button class="tab-btn inactive">Netherite Pot</button>
+      <button class="tab-btn inactive">Diamond Pot</button>
+    </div>
+
+    <!-- Search Input Area -->
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-box" placeholder="SEARCH PLAYER...">
+    </div>
+
+    <!-- Category 1: Combat Master -->
+    <div class="leaderboard-card">
+      <div class="category-title">Combat Master</div>
+      <div class="player-row rank-1-row">
+        <div class="rank-num">#1</div>
+        <img class="player-avatar" src="https://minotar.net/avatar/Steve/42" alt="Steve">
+        <div>
+          <span class="player-name">DEVIL_PLAYS2010</span>
+          <span class="subtitle">AS</span>
+        </div>
+        <div class="player-score">163</div>
+      </div>
+    </div>
+
+    <!-- Category 2: Combat Ace -->
+    <div class="leaderboard-card">
+      <div class="category-title">Combat Ace</div>
+      
+      <!-- Rank #2 Player -->
+      <div class="player-row" style="margin-bottom: 10px;">
+        <div class="rank-num">#2</div>
+        <img class="player-avatar" src="https://minotar.net/avatar/Herobrine/42" alt="Herobrine">
+        <div>
+          <span class="player-name">CurzClaps</span>
+          <span class="subtitle">AS</span>
+        </div>
+        <div class="player-score">125</div>
+      </div>
+
+      <!-- Rank #3 Player -->
+      <div class="player-row">
+        <div class="rank-num">#3</div>
+        <img class="player-avatar" src="https://minotar.net/avatar/Alex/42" alt="Alex">
+        <div>
+          <span class="player-name">Icykrish</span>
+          <span class="subtitle">AS</span>
+        </div>
+        <div class="player-score">98</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+                          
