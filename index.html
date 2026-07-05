@@ -1,21 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Horizon Tiers</title>
-    <meta name="description" content="Horizon Tiers — best tierlist" />
-    <meta property="og:title" content="Horizon Tiers" />
-    <meta property="og:description" content="Horizon Tiers — best tierlist" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Horizon Tiers" />
-    <meta name="twitter:description" content="Horizon Tiers — best tierlist" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pojav Tiers Leaderboard</title>
+  <style>
+    /* 1. Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Arial Black', 'Impact', sans-serif;
+      text-transform: uppercase;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 450px; /* Mobile responsive layout */
+    }
+
+    /* 2. Top Tabs Navigation */
+    .tab-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .tab-btn {
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+    .tab-btn.active {
+      background-color: #ef4444; /* Bright Red */
+      color: white;
+      border: none;
+    }
+    .tab-btn.inactive {
+      background-color: #171717;
+      color: #4b5563;
+      border: 1px solid #262626;
+    }
+
+    /* 3. Search Bar */
+    .search-box {
+      width: 100%;
+      background-color: #171717;
+      border: 1px solid #262626;
+      border-radius: 12px;
+      padding: 15px;
+      color: white;
+      font-size: 13px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+    .search-box::placeholder {
+      color: #4b5563;
+    }
+
+    /* 4. Leaderboard Section & Cards */
+    .leaderboard-card {
+      background-color: #171717;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #222;
+    }
+    .category-title {
+      font-style: italic;
+      font-size: 13px;
+      color: #ffffff;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Player Row Base Styles */
+    .player-row {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(30,30,30,0.6) 0%, rgba(15,15,15,0) 100%);
+      border-radius: 12px;
+      padding: 12px 15px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Left Border Indicator Line */
+    .player-row::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+    }
+
+    /* Avatar Style */
+    .player-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 6px;
+      margin-right: 15px;
+      background-color: #333;
+      image-rendering: pixelated; /* Minecraft skins realistic look */
+    }
+
+    /* Subtitle (AS) */
+    .subtitle {
+      font-size: 10px;
+      color: #6b7280;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Rank & Player Variant Stylings */
+    /* Rank 1 (Purple Glow) */
+    .rank-1-row::before {
+      background-color: #a855f7;
+      box-shadow: 0 0 15px #a855f7;
+    }
+    .rank-1-num {
+      color: #a855f7;
+      font-size: 20px;
+      margin-right: 15px;
+      min-width: 30px;
+    }
+    .rank-1-name {
+      color: #a855f7;
+      font-size: 16px;
+      text-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
+    }
+    .rank-1-score {
+      color: #facc15; /* Yellow/Gold score */
+      margin-left: auto;
+      font-size: 20px;
+    }
+
+    /* Rank 2 (White/Silver) */
+    .rank-2-row::before {
+      background-color: #e5e7eb;
+    }
+    .rank-2-num {
+      color: #9ca3af;
+      font-size: 20px;
+      margin-right: 15px;
+      min-width: 30px;
+    }
+    .rank-2-name {
+      color: #e5e7eb;
+      font-size: 16px;
+    }
+    .rank-2-score {
+      color: #facc15;
+      margin-left: auto;
+      font-size: 20px;
+    }
+
+    /* Rank 3 (Orange/Bronze) */
+    .rank-3-row::before {
+      background-color: #ca8a04;
+    }
+    .rank-3-num {
+      color: #ca8a04;
+      font-size: 20px;
+      margin-right: 15px;
+      min-width: 30px;
+    }
+    .rank-3-name {
+      color: #ca8a04;
+      font-size: 16px;
+    }
+    .rank-3-score {
+      color: #facc15;
+      margin-left: auto;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Navigation Tabs -->
+    <div class="tab-container">
+      <button class="tab-btn active">Overall</button>
+      <button class="tab-btn inactive">Netherite Pot</button>
+      <button class="tab-btn inactive">Diamond Pot</button>
+    </div>
+
+    <!-- Search Input -->
+    <input type="text" class="search-box" placeholder="SEARCH PLAYER...">
+
+    <!-- Card 1: Combat Master (Rank 1) -->
+    <div class="leaderboard-card">
+      <div class="category-title">Combat Master</div>
+      <div class="player-row rank-1-row">
+        <div class="rank-1-num">#1</div>
+        <!-- Replace src with actual Steve image URL if needed -->
+        <img class="player-avatar" src="https://minotar.net/avatar/Steve/45" alt="Steve">
+        <div>
+          <span class="rank-1-name">DEVIL_PLAYS2010</span>
+          <span class="subtitle">AS</span>
+        </div>
+        <div class="rank-1-score">163</div>
+      </div>
+    </div>
+
+    <!-- Card 2: Combat Ace (Rank 2 & Rank 3) -->
+    <div class="leaderboard-card">
+      <div class="category-title">Combat Ace</div>
+      
+      <!-- Rank 2 Player -->
+      <div class="player-row rank-2-row" style="margin-bottom: 12px;">
+        <div class="rank-2-num">#2</div>
+        <img class="player-avatar" src="https://minotar.net/avatar/Steve/45" alt="Steve">
+        <div>
+          <span class="rank-2-name">CurzClaps</span>
+          <span class="subtitle">AS</span>
+        </div>
+        <div class="rank-2-score">125</div>
+      </div>
+
+      <!-- Rank 3 Player -->
+      <div class="player-row rank-3-row">
+        <div class="rank-3-num">#3</div>
+        <img class="player-avatar" src="https://minotar.net/avatar/Alex/45" alt="Alex">
+        <div>
+          <span class="rank-3-name">Icykrish</span>
+          <span class="subtitle">AS</span>
+        </div>
+        <div class="rank-3-score">98</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+  </html>
+  
